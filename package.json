@@ -1,0 +1,22 @@
+{
+  "name": "hw-7-readmegen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "^C"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/War-Nugget/hw-7-readmeGen.git"
+  },
+  "keywords": [
+    "ISC"
+  ],
+  "author": "War-Nugget",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/War-Nugget/hw-7-readmeGen/issues"
+  },
+  "homepage": "https://github.com/War-Nugget/hw-7-readmeGen#readme"
+}
