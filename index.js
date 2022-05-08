@@ -4,7 +4,7 @@ const fs = require('fs');
 const util = require('util');
 
 // Internal modules
-const api = require('./utils/api.js');
+const gitAPI = require('./utils/githubAPI.js');
 
 
 // Inquirer prompts for userResponses
@@ -105,7 +105,7 @@ async function init() {
         console.log("Thank you for your responses! Fetching your GitHub data next...");
     
         // Call GitHub api for user info
-        const userInfo = await api.getUser(userResponses);
+        const userInfo = await gitAPI.getUser(userResponses);
         console.log("Your GitHub user info: ", userInfo);
     
         // Pass Inquirer userResponses and GitHub userInfo to generateMarkdown
