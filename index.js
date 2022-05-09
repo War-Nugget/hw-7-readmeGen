@@ -13,65 +13,42 @@ const questions = [
         type: 'input',
         message: "What is your GitHub username? (No @ needed)",
         name: 'username',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid GitHub username is required.");
-            }
-            return true;
-        }
     },
     {
         type: 'input',
         message: "What is the name of your GitHub repo?",
-        name: 'repo',
-
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid GitHub repo is required for a badge.");
-            }
-            return true;
-        }
+        name: 'repo'
     },
     {
         type: 'input',
         message: "What is the title of your project?",
         name: 'title',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid project title is required.");
-            }
-            return true;
-        }
+
     },
     {
         type: 'input',
         message: "Write a description of your project.",
         name: 'description',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid project description is required.");
-            }
-            return true;
-        }
+
     },
     {
         type: 'input',
-        message: "If applicable, describe the steps required to install your project for the Installation section.",
+        message: "If needed, describe the steps required to install your project for the Installation section.",
         name: 'installation'
     },
     {
         type: 'input',
-        message: "Provide instructions and examples of your project in use for the Usage section.",
+        message: "Give instructions and examples of your project in use for the Usage section.",
         name: 'usage'
     },
     {
         type: 'input',
-        message: "If applicable, provide guidelines on how other developers can contribute to your project.",
+        message: "If needed, provide guidelines on how other developers can contribute to your project.",
         name: 'contributing'
     },
     {
         type: 'input',
-        message: "If applicable, provide any tests written for your application and provide examples on how to run them.",
+        message: "If needed, provide any tests written for your application and provide examples on how to run them.",
         name: 'tests'
     },
     {
@@ -99,21 +76,13 @@ const writeFileAsync = util.promisify(writeToFile);
 async function init() {
     try {
 
-        // Prompt Inquirer questions
+        // Prompt Inquirer questions =============================================================
         const userResponses = await inquirer.prompt(questions);
-        console.log("Your responses: ", userResponses);
-        console.log("Thank you for your responses! Fetching your GitHub data next...");
-    
-        // Call GitHub api for user info
         const userInfo = await gitAPI.getUser(userResponses);
-        console.log("Your GitHub user info: ", userInfo);
-    
-        // Pass Inquirer userResponses and GitHub userInfo to generateMarkdown
-        console.log("Generating your README next...")
+        console.log("Working on your README..")
         const markdown = generateMarkdown(userResponses, userInfo);
-        console.log(markdown);
     
-        // Write markdown to file
+        // Writes the readme file ================================================
         await writeFileAsync('readme.md', markdown);
 
     } catch (error) {
@@ -124,23 +93,23 @@ async function init() {
 init();
 function generateMarkdown(userResponses, userInfo) {
 
-    // Generate Table of Contents conditionally based on userResponses
-    let draft = `## Table of Contents`;
+    // Generate Table of Contents if user inputs =============================================================
+    let tabCont = `## Table of Contents`;
   
-    if (userResponses.installation !== '') { draft += `
-    * [Installation](#installation)` };
+    if (!userResponses.installation) 
+    { tabCont += ` * (#installation)` };
   
-    if (userResponses.usage !== '') { draft += `
-    * [Usage](#usage)` };
+    if (!userResponses.usage) 
+    { tabCont += ` * (#usage)` };
   
-    if (userResponses.contributing !== '') { draft += `
-    * [Contributing](#contributing)` };
+    if (!userResponses.contributing) 
+    { tabCont += ` * (#contributing)` };
   
-    if (userResponses.tests !== '') { draft += `
-    * [Tests](#tests)` };
+    if (!userResponses.tests) 
+    { tabCont += ` * (#tests)` };
   
   
-    // Generate markdown for the top required portions of the README
+    // Generate markdown for the top required portions of the README =============================================================
     let draftMarkdown = 
     `# ${userResponses.title} by ${userResponses.username}
   
@@ -152,30 +121,30 @@ function generateMarkdown(userResponses, userInfo) {
   
     `
   
-    // Add Table of Contents to markdown
-    draftMarkdown += draft;
+    // Add Table of Contents to markdown =============================================================
+    draftMarkdown += tabCont;
    
-    // Add License section since License is required to Table of Contents
+ //Lisence section =============================================================
     draftMarkdown += `
     * [License](#license)`;
     
   
-    // Optional Installation section
-    if (userResponses.installation !== '') {
+    // Installation section =============================================================
+    if (!userResponses.installation) {
     
     draftMarkdown +=
     `
     
     ## Installation
     
-    *Steps required to install project and how to get the development environment running:*
+    *Steps required to install project and how to get the development running:*
     
     ${userResponses.installation}`
     };
     
   
-    // Optional Usage section
-    if (userResponses.usage !== '') {
+    //Usage section =============================================================
+    if (!userResponses.usage) {
     
     draftMarkdown +=
     
@@ -189,8 +158,8 @@ function generateMarkdown(userResponses, userInfo) {
     };
     
     
-    // Optional Contributing section
-    if (userResponses.contributing !== '') {
+    //Contributing section =============================================================
+    if (!userResponses.contributing) {
   
     draftMarkdown +=
       
@@ -204,8 +173,8 @@ function generateMarkdown(userResponses, userInfo) {
     };
     
   
-    // Optional Tests section
-    if (userResponses.tests !== '') {
+    
+    if (!userResponses.tests) {
     
     draftMarkdown +=
     `
@@ -218,7 +187,7 @@ function generateMarkdown(userResponses, userInfo) {
     };
   
   
-    // License section is required
+    // License section=============================================================
     draftMarkdown +=
     `
     
@@ -235,14 +204,14 @@ function generateMarkdown(userResponses, userInfo) {
     
     ## Questions?
   
-    <img src="${userInfo.avatar_url}" alt="${userInfo.login}" width="40%" />
+
     
     For any questions, please contact me with the information below:
    
     GitHub: [@${userInfo.login}](${userInfo.url})
     `;
   
-    // If GitHub email is not null, add to Developer section
+    // If GitHub email isn't null, adds it to dev section=========================================================
     if (userInfo.email !== null) {
     
     draftDev +=
