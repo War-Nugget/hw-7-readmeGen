@@ -1,13 +1,12 @@
-// External packages
 const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
 
-// Internal modules
+
 const gitAPI = require('./utils/githubAPI.js');
 
 
-// Inquirer prompts for userResponses
+// Inquirer prompts for userResponses =======================================================
 const questions = [
     {
         type: 'input',
@@ -33,28 +32,28 @@ const questions = [
     },
     {
         type: 'input',
-        message: "If needed, describe the steps required to install your project for the Installation section.",
+        message: "If needed, describe the steps required to install your project for the Installation section. (Press enter to skip this step)",
         name: 'installation'
     },
     {
         type: 'input',
-        message: "Give instructions and examples of your project in use for the Usage section.",
+        message: "Give instructions and examples of your project in use for the Usage section. (Press enter to skip this step)",
         name: 'usage'
     },
     {
         type: 'input',
-        message: "If needed, provide guidelines on how other developers can contribute to your project.",
+        message: "If needed, provide guidelines on how other developers can contribute to your project. (Press enter to skip this step)",
         name: 'contributing'
     },
     {
         type: 'input',
-        message: "If needed, provide any tests written for your application and provide examples on how to run them.",
+        message: "If needed, provide any tests written for your application and provide examples on how to run them. (Press enter to skip this step)",
         name: 'tests'
     },
     {
         type: 'list',
         message: "Choose a license for your project.",
-        choices: ['GNU AGPLv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense'],
+        choices: ['GNU AGPLv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License'],
         name: 'license'
     }
 ];
@@ -72,7 +71,7 @@ function writeToFile(fileName, data) {
 const writeFileAsync = util.promisify(writeToFile);
 
 
-// Main function
+
 async function init() {
     try {
 
@@ -137,7 +136,7 @@ function generateMarkdown(userResponses, userInfo) {
     
     ## Installation
     
-    *Steps required to install project and how to get the development running:*
+    *Steps required to install project and how to get the program running:*
     
     ${userResponses.installation}`
     };
@@ -167,7 +166,7 @@ function generateMarkdown(userResponses, userInfo) {
     
     ## Contributing
     
-    *If you would like to contribute it, you can follow these guidelines for how to do so.*
+    *If you would like to contribute it, you can follow these steps for how to do so.*
     
     ${userResponses.contributing}`
     };
@@ -221,10 +220,10 @@ function generateMarkdown(userResponses, userInfo) {
   
     `};
   
-    // Add developer section to markdown
+    // Add developer section to markdown =======================================================
     draftMarkdown += draftDev;
   
-    // Return markdown
+    // Return markdown =======================================================
     return draftMarkdown;
     
   }
