@@ -1,7 +1,7 @@
 {
   "name": "hw-7-readmegen",
   "version": "1.0.0",
-  "description": "",
+  "description": "This assignment was given to me by Georgia Tech has my 7th homework assignment. I decided to alter the files given to me a little bit to make the project a little easier but nonetheless a great challenge to complete. This program features prompts the user must enter to complete a readme file so you dont have to write the entire thing yourself!",
   "main": "index.js",
   "scripts": {
     "test": "^C"
@@ -18,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/War-Nugget/hw-7-readmeGen/issues"
   },
-  "homepage": "https://github.com/War-Nugget/hw-7-readmeGen#readme"
+  "homepage": "https://github.com/War-Nugget/hw-7-readmeGen#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "fs": "^0.0.1-security",
+    "inquirer": "^8.2.4",
+    "util": "^0.12.4"
+  }
 }

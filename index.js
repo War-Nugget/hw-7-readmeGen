@@ -92,139 +92,139 @@ async function init() {
 init();
 function generateMarkdown(userResponses, userInfo) {
 
-    // Generate Table of Contents if user inputs =============================================================
-    let tabCont = `## Table of Contents`;
+// Generate Table of Contents if user inputs =============================================================
+let tabCont = `## Table of Contents`;
   
-    if (!userResponses.installation) 
-    { tabCont += ` * (#installation)` };
+if (!userResponses.installation) 
+{ tabCont += ` * (#installation)` };
   
-    if (!userResponses.usage) 
-    { tabCont += ` * (#usage)` };
+if (!userResponses.usage) 
+{ tabCont += ` * (#usage)` };
   
-    if (!userResponses.contributing) 
-    { tabCont += ` * (#contributing)` };
+if (!userResponses.contributing) 
+{ tabCont += ` * (#contributing)` };
   
-    if (!userResponses.tests) 
-    { tabCont += ` * (#tests)` };
-  
-  
-    // Generate markdown for the top required portions of the README =============================================================
-    let draftMarkdown = 
-    `# ${userResponses.title} by ${userResponses.username}
+if (!userResponses.tests) 
+{ tabCont += ` * (#tests)` };
   
   
-    ## Description 
+// Generate markdown for the top required portions of the README =============================================================
+let draftMarkdown = 
+`# ${userResponses.title} by ${userResponses.username}
+  
+  
+## Description 
     
     
-    ${userResponses.description}
+${userResponses.description}
   
     `
   
-    // Add Table of Contents to markdown =============================================================
-    draftMarkdown += tabCont;
+// Add Table of Contents to markdown =============================================================
+draftMarkdown += tabCont;
    
  //Lisence section =============================================================
-    draftMarkdown += `
-    * [License](#license)`;
+draftMarkdown += `
+* [License](#license)`;
     
   
-    // Installation section =============================================================
-    if (!userResponses.installation) {
+// Installation section =============================================================
+if (!userResponses.installation) {
     
-    draftMarkdown +=
-    `
+draftMarkdown +=
+`
     
-    ## Installation
+## Installation
     
-    *Steps required to install project and how to get the program running:*
+*Steps required to install project and how to get the program running:*
     
-    ${userResponses.installation}`
-    };
+${userResponses.installation}`
+};
     
   
-    //Usage section =============================================================
-    if (!userResponses.usage) {
+//Usage section =============================================================
+if (!userResponses.usage) {
     
-    draftMarkdown +=
+draftMarkdown +=
     
-    `
+`
     
-    ## Usage 
+## Usage 
     
-    *Instructions and examples for use:*
+*Instructions and examples for use:*
     
-    ${userResponses.usage}`
-    };
+${userResponses.usage}`
+};
     
     
-    //Contributing section =============================================================
-    if (!userResponses.contributing) {
+//Contributing section =============================================================
+if (!userResponses.contributing) {
   
-    draftMarkdown +=
+draftMarkdown +=
       
-    `
+`
     
-    ## Contributing
+## Contributing
     
-    *If you would like to contribute it, you can follow these steps for how to do so.*
+*If you would like to contribute it, you can follow these steps for how to do so.*
     
-    ${userResponses.contributing}`
-    };
+${userResponses.contributing}`
+};
     
   
     
-    if (!userResponses.tests) {
+if (!userResponses.tests) {
     
-    draftMarkdown +=
-    `
+draftMarkdown +=
+`
     
-    ## Tests
+## Tests
     
-    *Tests for application and how to run them:*
+*Tests for application and how to run them:*
     
-    ${userResponses.tests}`
-    };
+${userResponses.tests}`
+};
   
   
-    // License section=============================================================
-    draftMarkdown +=
-    `
+// License section=============================================================
+draftMarkdown +=
+`
     
-    ## License
+## License
     
-    ${userResponses.license}
-    `;
+${userResponses.license}
+`;
   
   
-    // Questions / About Developer section
-    let draftDev = 
-    `
-    ---
+// Questions / About Developer section
+let draftDev = 
+`
+---
     
-    ## Questions?
+## Questions?
   
 
-    
-    For any questions, please contact me with the information below:
+
+For any questions, please contact me with the information below:
    
-    GitHub: [@${userInfo.login}](${userInfo.url})
-    `;
+GitHub: [@${userInfo.login}](${userInfo.url})
+`;
   
-    // If GitHub email isn't null, adds it to dev section=========================================================
-    if (userInfo.email !== null) {
+// If GitHub email isn't null, adds it to dev section=========================================================
+if (userInfo.email !== null) {
     
-    draftDev +=
-    `
+draftDev +=
+`
   
-    Email: ${userInfo.email}
+Email: ${userInfo.email}
   
-    `};
+`};
   
-    // Add developer section to markdown =======================================================
-    draftMarkdown += draftDev;
+// Add developer section to markdown =======================================================
+draftMarkdown += draftDev;
   
-    // Return markdown =======================================================
-    return draftMarkdown;
+// Return markdown =======================================================
+return draftMarkdown;
     
   }
   
